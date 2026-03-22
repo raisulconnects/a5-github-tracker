@@ -16,7 +16,54 @@ const closedBtn = document.getElementById("closedBtn");
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
 
+// Modal Selectors
+const modal_title = document.getElementById("modal-title");
+const modal_subtitle = document.getElementById("modal-subtitle");
+const modal_labels = document.getElementById("modal-labels");
+const modal_description = document.getElementById("modal-description");
+const modal_assignee = document.getElementById("modal-assignee");
+const modal_priority = document.getElementById("modal-priority");
+
 let content = "";
+
+// Modal Shower Function Which edits the modal things and then shows modal
+const modalShower = async (id) => {
+  // console.log(id);
+
+  try {
+    const response = await fetch(
+      `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`,
+    );
+    const data = await response.json();
+    const issue = data.data;
+
+    console.log(issue);
+
+    modal_title.textContent = issue.title;
+    modal_subtitle.textContent = `${issue.status === "open" ? "Opened" : "Closed"} • ${issue.status === "open" ? "Opened" : "Closed"} by ${issue.author} • ${new Date(issue.createdAt).toLocaleDateString()}`;
+    modal_labels.innerHTML = issue.labels
+      .map(
+        (
+          label,
+        ) => `<span class="flex gap-1 text-xs px-3 py-1 rounded-full border border-${label === "bug" ? "red" : "yellow"}-300 text-${label === "bug" ? "red" : "yellow"}-500 bg-${label === "bug" ? "red" : "yellow"}-50">
+          ${label.toUpperCase()}
+        </span>`,
+      )
+      .join("");
+
+    modal_description.textContent = issue.description;
+    modal_assignee.textContent = issue.author
+      .split("_")
+      .slice(0, 2)
+      .map((name) => name.toUpperCase())
+      .join(" ");
+    modal_priority.textContent = issue.priority.toUpperCase();
+  } catch (e) {
+    console.log(e.message);
+  }
+
+  my_modal_1.showModal();
+};
 
 // All Tab Fetch Function
 const githubFetcher = async () => {
@@ -29,7 +76,7 @@ const githubFetcher = async () => {
       .map((issue) => {
         return `
 
-          <div class="card border-t-4 border-${issue.status === "open" ? "green" : "purple"}-500">
+          <div class="card border-t-4 border-${issue.status === "open" ? "green" : "purple"}-500" onclick="modalShower(${issue.id})">
             <div
               class="w-full max-w-sm border border-gray-200 rounded-xl p-4 bg-white shadow-sm flex flex-col h-full min-h-[260px]"
             >
@@ -50,7 +97,7 @@ const githubFetcher = async () => {
                 ${issue.description}
               </p>
 
-              <!-- Tags -->
+              <!-- Tags/Labels -->
               <div class="flex gap-2 mt-4 mb-2">
                 <span class="flex gap-1 text-xs px-3 py-1 rounded-full border border-red-300 text-red-500 bg-red-50">
                   <img src="./images/BugDroid.png" alt="" /> BUG
@@ -95,7 +142,7 @@ const githubFetcherOpen = async () => {
       .map((issue) => {
         return `
 
-          <div class="card border-t-4 border-${issue.status === "open" ? "green" : "purple"}-500">
+          <div class="card border-t-4 border-${issue.status === "open" ? "green" : "purple"}-500" onclick="modalShower(${issue.id})">
             <div
               class="w-full max-w-sm border border-gray-200 rounded-xl p-4 bg-white shadow-sm flex flex-col h-full min-h-[260px]"
             >
@@ -160,7 +207,7 @@ const githubFetcherClosed = async () => {
       .map((issue) => {
         return `
 
-          <div class="card border-t-4 border-${issue.status === "open" ? "green" : "purple"}-500">
+          <div class="card border-t-4 border-${issue.status === "open" ? "green" : "purple"}-500" onclick="modalShower(${issue.id})">
             <div
               class="w-full max-w-sm border border-gray-200 rounded-xl p-4 bg-white shadow-sm flex flex-col h-full min-h-[260px]"
             >
@@ -225,7 +272,7 @@ const githubFetcherSearch = async (searchText) => {
       .map((issue) => {
         return `
 
-          <div class="card border-t-4 border-${issue.status === "open" ? "green" : "purple"}-500">
+          <div class="card border-t-4 border-${issue.status === "open" ? "green" : "purple"}-500" onclick="modalShower(${issue.id})">
             <div
               class="w-full max-w-sm border border-gray-200 rounded-xl p-4 bg-white shadow-sm flex flex-col h-full min-h-[260px]"
             >
@@ -279,7 +326,7 @@ const githubFetcherSearch = async (searchText) => {
 };
 
 cardBox.addEventListener("click", function (e) {
-  console.log("lol");
+  // console.log("lol");
 });
 
 // Initially All Tab will be active and show all the issues
