@@ -57,7 +57,9 @@ const modalShower = async (id) => {
       .slice(0, 2)
       .map((name) => name.toUpperCase())
       .join(" ");
-    modal_priority.textContent = issue.priority.toUpperCase();
+
+    // modal_priority.textContent = issue.priority.toUpperCase();
+    modal_priority.innerHTML = `<span class='text-sm text-white bg-${issue.priority === "high" ? "red" : issue.priority === "medium" ? "yellow" : "green"}-300 px-3 py-1 mt-2 rounded-2xl'> ${issue.priority.toUpperCase()} </span>`;
   } catch (e) {
     console.log(e.message);
   }
@@ -99,12 +101,15 @@ const githubFetcher = async () => {
 
               <!-- Tags/Labels -->
               <div class="flex gap-2 mt-4 mb-2">
-                <span class="flex gap-1 text-xs px-3 py-1 rounded-full border border-red-300 text-red-500 bg-red-50">
-                  <img src="./images/BugDroid.png" alt="" /> BUG
-                </span>
-                <span class="flex gap-1 text-xs px-3 py-1 rounded-full border border-yellow-300 text-yellow-600 bg-yellow-50 whitespace-nowrap">
-                  <img src="./images/Lifebuoy.png" alt="" /> HELP WANTED
-                </span>
+              ${issue.labels
+                .map(
+                  (
+                    label,
+                  ) => `<span class="flex gap-1 text-xs text-nowrap px-3 py-1 rounded-full border border-${label === "bug" ? "red" : "yellow"}-300 text-${label === "bug" ? "red" : "yellow"}-500 bg-${label === "bug" ? "red" : "yellow"}-50">
+                    <img src="./images/${label === "bug" ? "BugDroid" : "Lifebuoy"}.png" alt="" /> ${label.toUpperCase()}
+                  </span>`,
+                )
+                .join("")}
               </div>
 
               <!-- Footer (pushed to bottom) -->
@@ -163,14 +168,17 @@ const githubFetcherOpen = async () => {
                 ${issue.description}
               </p>
 
-              <!-- Tags -->
+              <!-- Tags/Labels -->
               <div class="flex gap-2 mt-4 mb-2">
-                <span class="flex gap-1 text-xs px-3 py-1 rounded-full border border-red-300 text-red-500 bg-red-50">
-                  <img src="./images/BugDroid.png" alt="" /> BUG
-                </span>
-                <span class="flex gap-1 text-xs px-3 py-1 rounded-full border border-yellow-300 text-yellow-600 bg-yellow-50 whitespace-nowrap">
-                  <img src="./images/Lifebuoy.png" alt="" /> HELP WANTED
-                </span>
+              ${issue.labels
+                .map(
+                  (
+                    label,
+                  ) => `<span class="flex gap-1 text-xs text-nowrap px-3 py-1 rounded-full border border-${label === "bug" ? "red" : "yellow"}-300 text-${label === "bug" ? "red" : "yellow"}-500 bg-${label === "bug" ? "red" : "yellow"}-50">
+                    <img src="./images/${label === "bug" ? "BugDroid" : "Lifebuoy"}.png" alt="" /> ${label.toUpperCase()}
+                  </span>`,
+                )
+                .join("")}
               </div>
 
               <!-- Footer (pushed to bottom) -->
@@ -228,14 +236,17 @@ const githubFetcherClosed = async () => {
                 ${issue.description}
               </p>
 
-              <!-- Tags -->
+              <!-- Tags/Labels -->
               <div class="flex gap-2 mt-4 mb-2">
-                <span class="flex gap-1 text-xs px-3 py-1 rounded-full border border-red-300 text-red-500 bg-red-50">
-                  <img src="./images/BugDroid.png" alt="" /> BUG
-                </span>
-                <span class="flex gap-1 text-xs px-3 py-1 rounded-full border border-yellow-300 text-yellow-600 bg-yellow-50 whitespace-nowrap">
-                  <img src="./images/Lifebuoy.png" alt="" /> HELP WANTED
-                </span>
+              ${issue.labels
+                .map(
+                  (
+                    label,
+                  ) => `<span class="flex gap-1 text-xs text-nowrap px-3 py-1 rounded-full border border-${label === "bug" ? "red" : "yellow"}-300 text-${label === "bug" ? "red" : "yellow"}-500 bg-${label === "bug" ? "red" : "yellow"}-50">
+                    <img src="./images/${label === "bug" ? "BugDroid" : "Lifebuoy"}.png" alt="" /> ${label.toUpperCase()}
+                  </span>`,
+                )
+                .join("")}
               </div>
 
               <!-- Footer (pushed to bottom) -->
@@ -293,14 +304,17 @@ const githubFetcherSearch = async (searchText) => {
                 ${issue.description}
               </p>
 
-              <!-- Tags -->
+              <!-- Tags/Labels -->
               <div class="flex gap-2 mt-4 mb-2">
-                <span class="flex gap-1 text-xs px-3 py-1 rounded-full border border-red-300 text-red-500 bg-red-50">
-                  <img src="./images/BugDroid.png" alt="" /> BUG
-                </span>
-                <span class="flex gap-1 text-xs px-3 py-1 rounded-full border border-yellow-300 text-yellow-600 bg-yellow-50 whitespace-nowrap">
-                  <img src="./images/Lifebuoy.png" alt="" /> HELP WANTED
-                </span>
+              ${issue.labels
+                .map(
+                  (
+                    label,
+                  ) => `<span class="flex gap-1 text-xs text-nowrap px-3 py-1 rounded-full border border-${label === "bug" ? "red" : "yellow"}-300 text-${label === "bug" ? "red" : "yellow"}-500 bg-${label === "bug" ? "red" : "yellow"}-50">
+                    <img src="./images/${label === "bug" ? "BugDroid" : "Lifebuoy"}.png" alt="" /> ${label.toUpperCase()}
+                  </span>`,
+                )
+                .join("")}
               </div>
 
               <!-- Footer (pushed to bottom) -->
