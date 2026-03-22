@@ -74,8 +74,6 @@ const githubFetcher = async () => {
     cardBox.innerHTML = "";
     cardBox.innerHTML = content;
     issuesNumber.textContent = `${data.data.length} Issues`;
-
-    console.log("All Github Fetcher Clicked!");
   } catch (e) {
     console.log(e.message);
   }
@@ -141,8 +139,6 @@ const githubFetcherOpen = async () => {
     cardBox.innerHTML = "";
     cardBox.innerHTML = content;
     issuesNumber.textContent = `${data.data.filter((issue) => issue.status === "open").length} Issues`;
-
-    console.log("Open Github Fetcher Clicked!");
   } catch (e) {
     console.log(e.message);
   }
@@ -208,8 +204,6 @@ const githubFetcherClosed = async () => {
     cardBox.innerHTML = "";
     cardBox.innerHTML = content;
     issuesNumber.textContent = `${data.data.filter((issue) => issue.status === "closed").length} Issues`;
-
-    console.log("Closed Github Fetcher Clicked!");
   } catch (e) {
     console.log(e.message);
   }
@@ -219,9 +213,51 @@ cardBox.addEventListener("click", function (e) {
   console.log("lol");
 });
 
+// Initially All Tab will be active and show all the issues
 githubFetcher();
 
 // Add Event Listeners to the buttons
-allBtn.addEventListener("click", githubFetcher);
-openBtn.addEventListener("click", githubFetcherOpen);
-closedBtn.addEventListener("click", githubFetcherClosed);
+allBtn.addEventListener("click", function () {
+  githubFetcher();
+
+  allBtn.classList.add("bg-[#4A00FF]", "text-white");
+  allBtn.classList.remove("bg-white");
+
+  openBtn.classList.remove("bg-[#4A00FF]", "text-white");
+  openBtn.classList.add("bg-white");
+
+  closedBtn.classList.remove("bg-[#4A00FF]", "text-white");
+  closedBtn.classList.add("bg-white");
+
+  console.log("All Github Fetcher Clicked!");
+});
+
+openBtn.addEventListener("click", function () {
+  githubFetcherOpen();
+
+  openBtn.classList.add("bg-[#4A00FF]", "text-white");
+  openBtn.classList.remove("bg-white");
+
+  allBtn.classList.remove("bg-[#4A00FF]", "text-white");
+  allBtn.classList.add("bg-white");
+
+  closedBtn.classList.remove("bg-[#4A00FF]", "text-white");
+  closedBtn.classList.add("bg-white");
+
+  console.log("Open Github Fetcher Clicked!");
+});
+
+closedBtn.addEventListener("click", function () {
+  githubFetcherClosed();
+
+  closedBtn.classList.add("bg-[#4A00FF]", "text-white");
+  closedBtn.classList.remove("bg-white");
+
+  allBtn.classList.remove("bg-[#4A00FF]", "text-white");
+  allBtn.classList.add("bg-white");
+
+  openBtn.classList.remove("bg-[#4A00FF]", "text-white");
+  openBtn.classList.add("bg-white");
+
+  console.log("Closed Github Fetcher Clicked!");
+});
