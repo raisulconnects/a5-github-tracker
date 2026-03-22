@@ -37,8 +37,8 @@ const githubFetcher = async () => {
               <div class="flex items-start justify-between mb-3">
                 <img src="./images/${issue.status}-Status.png" alt="" />
 
-                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-red-100 text-red-500">
-                  HIGH
+                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-${issue.priority === "high" ? "red" : issue.priority === "medium" ? "yellow" : "green"}-100 text-${issue.priority === "high" ? "red" : issue.priority === "medium" ? "yellow" : "green"}-500">
+                  ${issue.priority.toUpperCase()}
                 </span>
               </div>
 
@@ -77,6 +77,7 @@ const githubFetcher = async () => {
     cardBox.innerHTML = "";
     cardBox.innerHTML = content;
     issuesNumber.textContent = `${data.data.length} Issues`;
+    console.log(data.data);
   } catch (e) {
     console.log(e.message);
   }
@@ -102,8 +103,8 @@ const githubFetcherOpen = async () => {
               <div class="flex items-start justify-between mb-3">
                 <img src="./images/${issue.status}-Status.png" alt="" />
 
-                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-red-100 text-red-500">
-                  HIGH
+                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-${issue.priority === "high" ? "red" : issue.priority === "medium" ? "yellow" : "green"}-100 text-${issue.priority === "high" ? "red" : issue.priority === "medium" ? "yellow" : "green"}-500">
+                  ${issue.priority.toUpperCase()}
                 </span>
               </div>
 
@@ -167,8 +168,8 @@ const githubFetcherClosed = async () => {
               <div class="flex items-start justify-between mb-3">
                 <img src="./images/${issue.status}-Status.png" alt="" />
 
-                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-red-100 text-red-500">
-                  HIGH
+                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-${issue.priority === "high" ? "red" : issue.priority === "medium" ? "yellow" : "green"}-100 text-${issue.priority === "high" ? "red" : issue.priority === "medium" ? "yellow" : "green"}-500">
+                  ${issue.priority.toUpperCase()}
                 </span>
               </div>
 
@@ -232,8 +233,8 @@ const githubFetcherSearch = async (searchText) => {
               <div class="flex items-start justify-between mb-3">
                 <img src="./images/${issue.status}-Status.png" alt="" />
 
-                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-red-100 text-red-500">
-                  HIGH
+                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-${issue.priority === "high" ? "red" : issue.priority === "medium" ? "yellow" : "green"}-100 text-${issue.priority === "high" ? "red" : issue.priority === "medium" ? "yellow" : "green"}-500">
+                  ${issue.priority.toUpperCase()}     
                 </span>
               </div>
 
