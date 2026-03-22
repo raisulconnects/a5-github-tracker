@@ -1,4 +1,5 @@
 console.log("Github Issues Tracker Script: ");
+console.log("For Login Page");
 console.log("---------------------------------------------");
 // -----------------------------------------------------------------------
 
@@ -28,5 +29,3 @@ signIn.addEventListener("click", function (e) {
     return;
   }
 });
-
-// This Portion of the Script is for Dashboard Page -------------------------------------------------------------
